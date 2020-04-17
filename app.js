@@ -2,7 +2,6 @@ const figlet = require("figlet");
 const cTable = require("console.table");
 const util = require("util");
 const inquirer = require("inquirer");
-var ui = new inquirer.ui.BottomBar();
 
 const bigPrint = util.promisify(figlet.text);
 
@@ -60,6 +59,20 @@ async function init() {
   inquirer.prompt(menu).then(async (answers) => {
     await clearScreen();
     console.log(answers);
+    switch (answers.menu) {
+        case "a":
+            break;
+        case "s":
+            break;
+        case "e":
+            break;
+        case "b":
+            break;
+        case "x":
+            break;
+        default:
+            break;
+    }
     console.table(["Hello", "world"]);
   });
 }
