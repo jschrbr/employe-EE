@@ -7,7 +7,7 @@ inquirer.registerPrompt(
   require("inquirer-autocomplete-prompt")
 );
 
-class Add {
+class Que {
   menu = [
     {
       type: "list",
@@ -19,7 +19,7 @@ class Add {
           value: "a",
         },
         {
-          name: "View employees",
+          name: "Show employees",
           value: "s",
         },
         {
@@ -119,7 +119,6 @@ class Add {
           name: "By role",
           value: "r",
         },
-        new inquirer.Separator(),
         {
           name: "Return",
           value: "x",
@@ -138,6 +137,17 @@ class Add {
       // }
     },
   ];
+
+  get = [
+    {
+      type: "autocomplete",
+      name: "from",
+      message: "Select a state to travel from",
+      // source: function(answersSoFar, input) {
+      //   return myApi.searchStates(input);
+      // }
+    },
+  ];
 }
 
-module.exports = Add;
+module.exports = Que;

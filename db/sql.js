@@ -1,6 +1,5 @@
 const mysql = require("mysql");
 const util = require("util");
-const fs = require("fs");
 const _ = require("lodash");
 const fuzzy = require("fuzzy");
 const inquirer = require("inquirer");
@@ -19,7 +18,6 @@ const connection = mysql.createConnection({
 });
 
 const query = util.promisify(connection.query).bind(connection);
-const readFile = util.promisify(fs.readFile);
 
 connection.connect(function (err) {
   if (err) throw err;

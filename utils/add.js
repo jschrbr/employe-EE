@@ -1,8 +1,8 @@
 const inquirer = require("inquirer");
 const Use = require("../db/sql");
 const use = new Use();
-const Add = require("./questions");
-const add = new Add();
+const Que = require("./questions");
+const que = new Que();
 inquirer.registerPrompt(
   "autocomplete",
   require("inquirer-autocomplete-prompt")
@@ -20,7 +20,7 @@ async function exists(check, cb, sel, frm, wh1, wh2 = check) {
 }
 
 async function createRole() {
-  const ans = await inquirer.prompt(add.roles);
+  const ans = await inquirer.prompt(que.roles);
   let row = { title: ans.title, salary: ans.salary };
   let sel = "id";
   let frm = "department";
@@ -33,14 +33,14 @@ async function createRole() {
 }
 
 async function createDepartment() {
-  const ans = await inquirer.prompt(add.departments);
+  const ans = await inquirer.prompt(que.departments);
   await use.insert("department", ans);
   const id = await use.select("LAST_INSERT_ID()");
   return Object.values(id[0])[0];
 }
 
 async function addEmployee() {
-  let ans = await inquirer.prompt(add.credentials);
+  let ans = await inquirer.prompt(que.credentials);
   let row = { first_name: ans.first_name, last_name: ans.last_name };
   let sel = "id";
   let frm = "role";
@@ -54,7 +54,7 @@ async function addEmployee() {
   await use.insert("employee", row);
   let id = await use.select("LAST_INSERT_ID()");
   id = Object.values(id[0])[0];
-  ans = await inquirer.prompt(add.managers);
+  ans = await inquirer.prompt(que.managers);
   tmp = await use.select(
     "id, first_name, last_name",
     "employee",
@@ -64,9 +64,9 @@ async function addEmployee() {
   row = { manager_id: ans.manager };
   await use.update("employee", row, "id", id);
   let action = Object.values(tmp[0]).reduce((a, x) => a + ` ${x}`);
-  stats.manager = `\nManager: ${action}`;
+  stats.manager = `\n\nManager: ${action}`;
   action = Object.values(stats).reduce((a, x) => a + ` ${x}`);
-  return `Added emplyee: ${action}`;
+  return `Added employee: ${action}`;
 }
 
 module.exports = addEmployee;

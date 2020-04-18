@@ -8,6 +8,6 @@ inquirer.registerPrompt(
   require("inquirer-autocomplete-prompt")
 );
 
-async function editEmployee() {}
+async function getBudgets() {}
 
-module.exports = editEmployee;
+module.exports = getBudgets;
