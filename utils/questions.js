@@ -57,7 +57,7 @@ class Que {
       type: "autocomplete",
       name: "role",
       message: "What's the employee's role: ",
-      source: (ans, input) => use.check(input, "title", "role"),
+      source: (ans, input) => use.check(input, "title", "role", "+"),
     },
   ];
 
@@ -79,7 +79,7 @@ class Que {
       type: "autocomplete",
       name: "department",
       message: "What's the role's department: ",
-      source: (ans, input) => use.check(input, "name", "department"),
+      source: (ans, input) => use.check(input, "name", "department", "+"),
     },
   ];
 
@@ -160,17 +160,16 @@ class Que {
       name: "edit",
       message: "Choose an employee to edit : ",
       source: (ans, input) =>
-        use.check(input, "id, first_name, last_name", "employee", 1),
+        use.check(input, "id, first_name, last_name", "employee", "Return"),
     },
   ];
 
-  edit_employee2 = [
+  edit_role = [
     {
       type: "autocomplete",
       name: "edit",
-      message: "Choose an employee to edit : ",
-      source: (ans, input) =>
-        use.check(input, "id, first_name, last_name", "employee", 1),
+      message: "Choose an role to edit : ",
+      source: (ans, input) => use.check(input, "id, title", "role", "Return"),
     },
   ];
 
@@ -178,9 +177,8 @@ class Que {
     {
       type: "autocomplete",
       name: "edit",
-      message: "Choose an employee to edit : ",
-      source: (ans, input) =>
-        use.check(input, "id, first_name, last_name", "employee", 1),
+      message: "Choose an department to edit : ",
+      source: (ans, input) => use.check(input, "name", "department", "Return"),
     },
   ];
 

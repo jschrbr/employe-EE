@@ -66,11 +66,9 @@ async function queryChk(input, a, b, c = 0) {
     });
     results.push(str);
   });
-  if (b !== "employee") {
-    results.unshift(`+`);
-  }
+
   if (c !== 0) {
-    results.unshift(`Return`);
+    results.unshift(`${c}`);
   }
   input = input || "";
   return new Promise(function (resolve) {
