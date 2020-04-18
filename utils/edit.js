@@ -3,6 +3,9 @@ const Use = require("../db/sql");
 const use = new Use();
 const Que = require("./questions");
 const que = new Que();
+const Clear = require("./clear");
+const clear = new Clear();
+
 inquirer.registerPrompt(
   "autocomplete",
   require("inquirer-autocomplete-prompt")
@@ -40,7 +43,7 @@ async function employee(id) {
     manager_id: man_id,
   };
   await use.update("employee", row, "id", id);
-
+  await clear.clearScreen();
   return false;
 }
 
@@ -53,6 +56,7 @@ async function editEmployee(check = false) {
       default:
         let patt = /^[\d]+/g;
         let id = patt.exec(ans.edit)[0];
+        await clear.clearScreen();
         return editEmployee(await employee(id));
     }
   }

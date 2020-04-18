@@ -1,10 +1,3 @@
-const EventEmitter = require("events");
-
-class MyEmitter extends EventEmitter {}
-
-const myEmitter = new MyEmitter();
-// increase the limit
-myEmitter.setMaxListeners(100);
 const readline = require("readline");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
