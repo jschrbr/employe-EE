@@ -112,12 +112,12 @@ class Que {
           value: "e",
         },
         {
-          name: "By department",
-          value: "d",
-        },
-        {
           name: "By role",
           value: "r",
+        },
+        {
+          name: "By department",
+          value: "d",
         },
         {
           name: "Return",
@@ -127,14 +127,60 @@ class Que {
     },
   ];
 
-  edit = [
+  edits = [
+    {
+      type: "list",
+      name: "views",
+      message: "Choose what you'd like to edit: ",
+      choices: [
+        {
+          name: "Employee",
+          value: "e",
+        },
+        {
+          name: "Role",
+          value: "r",
+        },
+        {
+          name: "Department",
+          value: "d",
+        },
+        new inquirer.Separator(),
+        {
+          name: "Return",
+          value: "x",
+        },
+      ],
+    },
+  ];
+
+  edit_employee = [
     {
       type: "autocomplete",
-      name: "from",
-      message: "Select a state to travel from",
-      // source: function(answersSoFar, input) {
-      //   return myApi.searchStates(input);
-      // }
+      name: "edit",
+      message: "Choose an employee to edit : ",
+      source: (ans, input) =>
+        use.check(input, "id, first_name, last_name", "employee", 1),
+    },
+  ];
+
+  edit_employee2 = [
+    {
+      type: "autocomplete",
+      name: "edit",
+      message: "Choose an employee to edit : ",
+      source: (ans, input) =>
+        use.check(input, "id, first_name, last_name", "employee", 1),
+    },
+  ];
+
+  edit_department = [
+    {
+      type: "autocomplete",
+      name: "edit",
+      message: "Choose an employee to edit : ",
+      source: (ans, input) =>
+        use.check(input, "id, first_name, last_name", "employee", 1),
     },
   ];
 

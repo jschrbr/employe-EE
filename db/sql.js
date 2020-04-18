@@ -55,19 +55,22 @@ async function queryUpd(a, b, c, d) {
   await query(qry, [b]);
 }
 
-async function queryChk(input, a, b) {
+async function queryChk(input, a, b, c = 0) {
   opt = await querySel(a, b);
   results = [];
   opt.forEach((element) => {
     let str = "";
     check = Object.values(element);
     check.forEach((element) => {
-      str += ` ${element}`;
+      str += `${element} `;
     });
     results.push(str);
   });
   if (b !== "employee") {
     results.unshift(`+`);
+  }
+  if (c !== 0) {
+    results.unshift(`Return`);
   }
   input = input || "";
   return new Promise(function (resolve) {
@@ -98,8 +101,8 @@ Use.prototype.update = function (a, b, c, d) {
   return;
 };
 
-Use.prototype.check = function (a, b, c) {
-  return queryChk(a, b, c);
+Use.prototype.check = function (a, b, c, d) {
+  return queryChk(a, b, c, d);
 };
 
 Use.prototype.exit = () => connection.end();

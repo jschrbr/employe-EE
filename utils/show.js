@@ -72,7 +72,7 @@ async function showRole() {
   for (let i = 0; i < data.length; i++) {
     element = data[i];
     let table = await use.select("*", "employee", "role_id", element.id);
-    result.push([element.name, table]);
+    result.push([element.title, table]);
   }
   result.forEach((element) => {
     console.log("");
@@ -95,16 +95,12 @@ async function viewEmployee(view = false) {
     switch (ans.views) {
       case "e":
         return viewEmployee(await showAll());
-        break;
       case "d":
         return viewEmployee(await showDepartment());
-        break;
       case "r":
         return viewEmployee(await showRole());
-        break;
       default:
         return "Returned from show";
-        break;
     }
   }
 }
