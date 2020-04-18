@@ -1,7 +1,16 @@
-var mysql = require("mysql");
+const mysql = require("mysql");
 const util = require("util");
+const fs = require("fs");
+const _ = require("lodash");
+const fuzzy = require("fuzzy");
+const inquirer = require("inquirer");
 
-var connection = mysql.createConnection({
+inquirer.registerPrompt(
+  "autocomplete",
+  require("inquirer-autocomplete-prompt")
+);
+
+const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
@@ -10,6 +19,7 @@ var connection = mysql.createConnection({
 });
 
 const query = util.promisify(connection.query).bind(connection);
+const readFile = util.promisify(fs.readFile);
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -47,6 +57,33 @@ async function queryUpd(a, b, c, d) {
   await query(qry, [b]);
 }
 
+async function queryChk(input, a, b) {
+  opt = await querySel(a, b);
+  results = [];
+  opt.forEach((element) => {
+    let str = "";
+    check = Object.values(element);
+    check.forEach((element) => {
+      str += ` ${element}`;
+    });
+    results.push(str);
+  });
+  if (b !== "employee") {
+    results.unshift(`+`);
+  }
+  input = input || "";
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      var fuzzyResult = fuzzy.filter(input, results);
+      resolve(
+        fuzzyResult.map(function (el) {
+          return el.original;
+        })
+      );
+    }, _.random(30, 500));
+  });
+}
+
 function Use() {}
 
 Use.prototype.select = function (a, b, c, d) {
@@ -57,9 +94,14 @@ Use.prototype.insert = function (a, b, c, d) {
   queryIns(a, b, c, d);
   return;
 };
+
 Use.prototype.update = function (a, b, c, d) {
   queryUpd(a, b, c, d);
   return;
+};
+
+Use.prototype.check = function (a, b, c) {
+  return queryChk(a, b, c);
 };
 
 Use.prototype.exit = () => connection.end();
