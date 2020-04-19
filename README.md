@@ -15,8 +15,27 @@
 
 ## Install
 
+This application requires a local mySQL server to be running. Connection credentials can be edited in [sql.js](db/sql.js).
+
+> Default:
+>
+> ```sh
+> username: root
+> password:
+> host: localhost
+> port: 3306
+> db: employee_db
+> ```
+>
+> db name is set in [seed.sql](db/seed.sql).
+
+Run the following in a terminal.
+
 ```sh
-npm install
+git clone https://github.com/jschrbr/employe-EE.git;
+cd employ-EE;
+npm install;
+mysql -u root < db/seed.sql;
 ```
 
 ## Usage
@@ -25,23 +44,17 @@ npm install
 node app.js
 ```
 
-## Run tests
-
-```sh
-npm run test
-```
-
 ## Author
 
 👤 **James Schreiber**
 
-* Website: https://jschrbr.github.io/portfolio/
-* Github: [@jschrbr](https://github.com/jschrbr)
-* LinkedIn: [@techsmechs](https://linkedin.com/in/techsmechs)
+- Website: https://jschrbr.github.io/portfolio/
+- Github: [@jschrbr](https://github.com/jschrbr)
+- LinkedIn: [@techsmechs](https://linkedin.com/in/techsmechs)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jschrbr/employe-EE/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jschrbr/employe-EE/issues).
 
 ## Show your support
 
@@ -51,5 +64,6 @@ Give a ⭐️ if this project helped you!
   <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

@@ -97,7 +97,7 @@ async function getBudgets(view = false) {
       case "r":
         return getBudgets(await showRole());
       default:
-        return "Returned from selector";
+        return "Returned from budgets";
     }
   }
 }
