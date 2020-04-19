@@ -23,11 +23,11 @@ class Que {
           value: "s",
         },
         {
-          name: "Edit employee",
+          name: "Edit data",
           value: "e",
         },
         {
-          name: "Budgets",
+          name: "Show budgets",
           value: "b",
         },
         new inquirer.Separator(),
@@ -87,7 +87,7 @@ class Que {
     {
       type: "input",
       name: "name",
-      message: "What's the department's title: ",
+      message: "What's the department's name: ",
     },
   ];
 
@@ -119,6 +119,8 @@ class Que {
           name: "By department",
           value: "d",
         },
+        new inquirer.Separator(),
+
         {
           name: "Return",
           value: "x",
@@ -147,8 +149,12 @@ class Que {
         },
         new inquirer.Separator(),
         {
-          name: "Return",
+          name: "Remove",
           value: "x",
+        },
+        {
+          name: "Return",
+          value: "b",
         },
       ],
     },
@@ -160,7 +166,12 @@ class Que {
       name: "edit",
       message: "Choose an employee to edit : ",
       source: (ans, input) =>
-        use.check(input, "id, first_name, last_name", "employee", "Return"),
+        use.check(
+          input,
+          "employee.id, employee.first_name, employee.last_name, role.title, department.name",
+          "employee JOIN role ON employee.role_id=role.id JOIN department ON department.id=role.department_id",
+          "Return"
+        ),
     },
   ];
 
@@ -169,7 +180,13 @@ class Que {
       type: "autocomplete",
       name: "edit",
       message: "Choose an role to edit : ",
-      source: (ans, input) => use.check(input, "id, title", "role", "Return"),
+      source: (ans, input) =>
+        use.check(
+          input,
+          "role.id, role.title, department.name",
+          "role JOIN department ON department.id=role.department_id",
+          "Return"
+        ),
     },
   ];
 
@@ -178,7 +195,23 @@ class Que {
       type: "autocomplete",
       name: "edit",
       message: "Choose an department to edit : ",
-      source: (ans, input) => use.check(input, "name", "department", "Return"),
+      source: (ans, input) =>
+        use.check(input, "id, name", "department", "Return"),
+    },
+  ];
+
+  delete_employee = [
+    {
+      type: "autocomplete",
+      name: "edit",
+      message: "Choose an employee to delete : ",
+      source: (ans, input) =>
+        use.check(
+          input,
+          "employee.id, employee.first_name, employee.last_name, role.title, department.name",
+          "employee JOIN role ON employee.role_id=role.id JOIN department ON department.id=role.department_id",
+          "Return"
+        ),
     },
   ];
 

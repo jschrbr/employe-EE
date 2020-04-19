@@ -6,31 +6,32 @@ const Use = require("../db/sql");
 const use = new Use();
 const Que = require("./questions");
 const que = new Que();
+const Clear = require("./clear");
+const clear = new Clear();
 
 inquirer.registerPrompt(
   "autocomplete",
   require("inquirer-autocomplete-prompt")
 );
 
-async function clear() {
-  const blank = "\n".repeat(process.stdout.rows);
-  console.log(blank);
-  readline.cursorTo(process.stdout, 0, 0);
-  readline.clearScreenDown(process.stdout);
-}
+const creds =
+  "employee.first_name, employee.last_name, role.title, department.name, employee.manager_id";
+const joins =
+  "employee JOIN role ON employee.role_id=role.id JOIN department ON department.id=role.department_id";
 
 async function showAll(a = 0) {
-  let data = await use.select("*", "employee");
+  let data = await use.select(creds, joins);
   if (a === 0) {
     a = data.length + 1;
   }
-  await clear();
-  console.log("");
-  console.table(
-    "Employees",
-    data.filter((e) => data.indexOf(e) < a)
-  );
-  console.log("");
+  if (data.length > 0) {
+    console.log("");
+    console.table(
+      "Employees",
+      data.filter((e) => data.indexOf(e) < a)
+    );
+    console.log("");
+  }
   console.log("");
   console.log("");
   return false;
@@ -38,13 +39,12 @@ async function showAll(a = 0) {
 
 async function showDepartment() {
   data = await use.select("*", "department");
-  await clear();
-  result = [];
+  let result = [];
   for (let i = 0; i < data.length; i++) {
     element = data[i];
     let table = await use.select(
-      "employee.*",
-      `employee JOIN role ON employee.role_id=role.id JOIN department ON department.id = role.department_id WHERE department.id = ${element.id}`
+      creds,
+      `${joins} WHERE role.department_id=${element.id}`
     );
     result.push([element.name, table]);
   }
@@ -59,12 +59,13 @@ async function showDepartment() {
 }
 async function showRole() {
   let data = await use.select("*", "role");
-  await clear();
   result = [];
-
   for (let i = 0; i < data.length; i++) {
     element = data[i];
-    let table = await use.select("*", "employee", "role_id", element.id);
+    let table = await use.select(
+      creds,
+      `${joins} WHERE employee.role_id=${element.id}`
+    );
     result.push([element.title, table]);
   }
   result.forEach((element) => {
@@ -80,11 +81,12 @@ async function showRole() {
 async function viewEmployee(view = false) {
   if (!(typeof view.then === "function")) {
     if (view) {
+      await clear.clear();
       await showAll(10);
     }
 
     let ans = await inquirer.prompt(que.views);
-    await clear();
+    await clear.clear();
     switch (ans.views) {
       case "e":
         return viewEmployee(await showAll());
@@ -93,7 +95,7 @@ async function viewEmployee(view = false) {
       case "r":
         return viewEmployee(await showRole());
       default:
-        return "Returned from show";
+        return "Returned from selector";
     }
   }
 }

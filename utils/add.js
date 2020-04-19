@@ -55,13 +55,11 @@ async function addEmployee() {
   let id = await use.select("LAST_INSERT_ID()");
   id = Object.values(id[0])[0];
   ans = await inquirer.prompt(que.managers);
-  tmp = await use.select(
-    "id, first_name, last_name",
-    "employee",
-    "id",
-    ans.manager
-  );
-  row = { manager_id: ans.manager };
+
+  let patt = /^[\d]+/g;
+  let man_id = patt.exec(ans.manager)[0];
+  tmp = await use.select("id, first_name, last_name", "employee", "id", man_id);
+  row = { manager_id: man_id };
   await use.update("employee", row, "id", id);
   let action = Object.values(tmp[0]).reduce((a, x) => a + ` ${x}`);
   stats.manager = `\n\nManager: ${action}`;

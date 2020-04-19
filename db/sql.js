@@ -40,6 +40,11 @@ async function querySel(a, b = 0, c = 0, d = 0) {
   return results;
 }
 
+async function queryDel(a, b, c) {
+  qry = `DELETE FROM ${a} WHERE ${b}=${c}`;
+  return await query(qry);
+}
+
 async function queryIns(a, b, c = 0, d = 0) {
   let qry = "";
   if (c === 0 && d === 0) {
@@ -97,6 +102,10 @@ Use.prototype.insert = function (a, b, c, d) {
 Use.prototype.update = function (a, b, c, d) {
   queryUpd(a, b, c, d);
   return;
+};
+
+Use.prototype.remove = function (a, b, c) {
+  return queryDel(a, b, c);
 };
 
 Use.prototype.check = function (a, b, c, d) {
