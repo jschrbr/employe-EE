@@ -79,7 +79,7 @@ class Que {
       type: "autocomplete",
       name: "department",
       message: "What's the role's department: ",
-      source: (ans, input) => use.check(input, "name", "department", "+"),
+      source: (ans, input) => use.check(input, "id, name", "department", "+"),
     },
   ];
 
@@ -101,11 +101,10 @@ class Que {
     },
   ];
 
-  views = [
+  show = [
     {
       type: "list",
       name: "views",
-      message: "Choose how to display the employees: ",
       choices: [
         {
           name: "By employee",

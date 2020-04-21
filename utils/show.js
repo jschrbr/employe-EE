@@ -84,8 +84,8 @@ async function viewEmployee(view = false) {
       await clear.clear();
       await showAll(10);
     }
-
-    let ans = await inquirer.prompt(que.views);
+    que.show.message = "Choose how to display the budgets: ";
+    let ans = await inquirer.prompt(que.show);
     await clear.clear();
     switch (ans.views) {
       case "e":

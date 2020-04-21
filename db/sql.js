@@ -53,6 +53,8 @@ async function queryIns(a, b, c = 0, d = 0) {
     qry = `INSERT INTO ${a} SET ? WHERE ${c}=${d}`;
   }
   await query(qry, [b]);
+  const id = await querySel("LAST_INSERT_ID()");
+  return Object.values(id[0])[0];
 }
 
 async function queryUpd(a, b, c, d) {
@@ -95,8 +97,7 @@ Use.prototype.select = function (a, b, c, d) {
 };
 
 Use.prototype.insert = function (a, b, c, d) {
-  queryIns(a, b, c, d);
-  return;
+  return queryIns(a, b, c, d);
 };
 
 Use.prototype.update = function (a, b, c, d) {
