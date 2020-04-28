@@ -4,7 +4,7 @@ const show = require("./utils/show");
 const edit = require("./utils/edit");
 const get = require("./utils/get");
 
-const Use = require("./db/sql");
+const Use = require("./config/sql");
 const use = new Use();
 const Que = require("./utils/questions");
 const que = new Que();

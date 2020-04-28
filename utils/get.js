@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const Use = require("../db/sql");
+const Use = require("../config/sql");
 const use = new Use();
 const Que = require("./questions");
 const que = new Que();

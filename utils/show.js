@@ -2,7 +2,7 @@ const readline = require("readline");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 
-const Use = require("../db/sql");
+const Use = require("../config/sql");
 const use = new Use();
 const Que = require("./questions");
 const que = new Que();
