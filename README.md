@@ -27,7 +27,7 @@ This application requires a local mySQL server to be running. Connection credent
 > db: employee_db
 > ```
 >
-> db name is set in [seed.sql](db/seed.sql).
+> db name is set in [schema.sql](db/schema.sql).
 
 Run the following in a terminal.
 
@@ -35,7 +35,7 @@ Run the following in a terminal.
 git clone https://github.com/jschrbr/employe-EE.git;
 cd employ-EE;
 npm install;
-mysql -u root < db/seed.sql;
+mysql -u root < db/schema.sql;
 ```
 
 ## Usage
