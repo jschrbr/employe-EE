@@ -8,7 +8,7 @@ inquirer.registerPrompt(
   require("inquirer-autocomplete-prompt")
 );
 
-const patt = /^[+\d]+/g;
+const patt = /^([\+\d])+/g;
 
 async function exists(check, cb) {
   let result = check;
@@ -27,7 +27,7 @@ async function createRole() {
   const ans = await inquirer.prompt(que.roles);
   let row = { title: ans.title, salary: ans.salary };
   let dep = ans.department;
-  const id = patt.exec(dep)[0];
+  const id = dep.exec(patt)[0];
   row.department_id = await exists(id, createDepartment);
   return await use.insert("role", row);
 }
@@ -37,7 +37,7 @@ async function addEmployee() {
   let row = { first_name: ans.first_name, last_name: ans.last_name };
   let stats = {};
   Object.assign(stats, row);
-  let role_id = patt.exec(ans.role)[0];
+  let role_id = ans.role.match(patt)[0];
   role_id = await exists(role_id, createRole);
   row.role_id = role_id;
   let id = await use.insert("employee", row);

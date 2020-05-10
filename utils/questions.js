@@ -57,7 +57,7 @@ class Que {
       type: "autocomplete",
       name: "role",
       message: "What's the employee's role: ",
-      source: (ans, input) => use.check(input, "title", "role", "+"),
+      source: (ans, input) => use.check(input, "id, title", "role", "+"),
     },
   ];
 
